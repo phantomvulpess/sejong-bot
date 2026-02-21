@@ -34,8 +34,8 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
 
     try:
-        synced = await bot.sync_commands()
-        print(f"Slash commands synced: {len(synced)} command(s)")
+        await bot.sync_commands()
+        print("Slash commands synced successfully!")
     except Exception as e:
         print(f"Failed to sync slash commands: {e}")
 
