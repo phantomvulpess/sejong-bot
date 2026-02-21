@@ -34,16 +34,6 @@ async def on_ready():
     print("Bot is online!")
 
 # ----------------------------
-# Example command (optional)
-# ----------------------------
-@bot.command()
-async def ping(ctx):
-    await ctx.send("Pong!")
-@bot.command()
-async def ping(ctx):
-    await ctx.send("Pong!")
-
-# ----------------------------
 # Load Cogs
 # ----------------------------
 for root, dirs, files in os.walk("./cogs"):
