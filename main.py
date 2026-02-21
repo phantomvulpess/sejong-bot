@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import discord
-from discord.ext import commands
+from discord.ext import bridge
 
 # ----------------------------
 # Load environment variables
@@ -20,9 +20,10 @@ if not BOT_TOKEN:
 intents = discord.Intents.default()
 intents.message_content = True  # Required for reading messages
 
-bot = commands.Bot(
+bot = bridge.Bot(
     command_prefix="!",
-    intents=intents
+    intents=intents,
+    help_command=None
 )
 
 # ----------------------------
@@ -36,16 +37,19 @@ async def on_ready():
 # ----------------------------
 # Load Cogs
 # ----------------------------
-for root, dirs, files in os.walk("./cogs"):
-    for file in files:
-        if file.endswith(".py"):
-            cog_path = os.path.join(root, file)
-            module = cog_path.replace("./", "").replace("/", ".").replace("\\", ".")[:-3]
-            try:
-                bot.load_extension(module)
-                print(f"Loaded extension: {module}")
-            except Exception as e:
-                print(f"Failed to load {module}: {e}")
+
+extensions = [
+    "cogs.dictionary.cog",
+    "cogs.hanja.cog",
+    "cogs.support",
+]
+
+for ext in extensions:
+    try:
+        bot.load_extension(ext)
+        print(f"Loaded extension: {ext}")
+    except Exception as e:
+        print(f"Failed to load {ext}: {e}")
 
 # ----------------------------
 # Run Bot
