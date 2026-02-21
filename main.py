@@ -32,6 +32,13 @@ bot = bridge.Bot(
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
+
+    try:
+        synced = await bot.sync_commands()
+        print(f"Slash commands synced: {len(synced)} command(s)")
+    except Exception as e:
+        print(f"Failed to sync slash commands: {e}")
+
     print("Bot is online!")
 
 # ----------------------------
